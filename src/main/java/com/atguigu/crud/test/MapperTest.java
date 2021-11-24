@@ -53,4 +53,10 @@ public class MapperTest {
         }
         System.out.println("批量完成");
     }
+
+    @Test
+    public void test4(){
+        Employee employee = employeeMapper.selectByPrimaryKey(45);
+        System.out.println(employee);
+    }
 }

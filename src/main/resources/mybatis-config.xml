@@ -9,7 +9,7 @@
     <typeAliases>
         <package name="com.atguigu.crud.bean"/>
     </typeAliases>
-<!--    <plugins>-->
-<!--        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>-->
-<!--    </plugins>-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
 </configuration>
