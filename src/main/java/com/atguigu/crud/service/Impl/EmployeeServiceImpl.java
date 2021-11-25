@@ -1,6 +1,7 @@
 package com.atguigu.crud.service.Impl;
 
 import com.atguigu.crud.bean.Employee;
+import com.atguigu.crud.bean.EmployeeExample;
 import com.atguigu.crud.dao.EmployeeMapper;
 import com.atguigu.crud.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,25 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     public List<Employee> getAll() {
         return employeeMapper.selectByExampleWithDept(null);
+    }
+
+    @Override
+    public void saveEmp(Employee employee) {
+        employeeMapper.insertSelective(employee);
+    }
+
+    @Override
+    public boolean checkUser(String empName) {
+        EmployeeExample example = new EmployeeExample();
+        EmployeeExample.Criteria criteria = example.createCriteria();
+        criteria.andEmpNameEqualTo(empName);
+        long count = employeeMapper.countByExample(example);
+        return count == 0;
+    }
+
+    @Override
+    public Employee getEmp(Integer id) {
+        Employee employee = employeeMapper.selectByPrimaryKey(id);
+        return employee;
     }
 }
