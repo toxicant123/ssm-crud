@@ -46,4 +46,24 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeMapper.selectByPrimaryKey(id);
         return employee;
     }
+
+    @Override
+    public void updateEmp(Employee employee) {
+        employeeMapper.updateByPrimaryKeySelective(employee);
+    }
+
+    @Override
+    public void deleteEmp(Integer id) {
+        employeeMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void deleteBatch(List<Integer> ids) {
+        EmployeeExample example = new EmployeeExample();
+        EmployeeExample.Criteria criteria = example.createCriteria();
+        criteria.andEmpIdIn(ids);
+        employeeMapper.deleteByExample(example);
+    }
+
+
 }

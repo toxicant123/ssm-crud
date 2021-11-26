@@ -17,4 +17,10 @@ public interface EmployeeService {
     boolean checkUser(String empName);
 
     Employee getEmp(Integer id);
+
+    void updateEmp(Employee employee);
+
+    void deleteEmp(Integer id);
+
+    void deleteBatch(List<Integer> ids);
 }

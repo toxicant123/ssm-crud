@@ -13,6 +13,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,10 +31,11 @@ public class EmployeeController {
 
     @RequestMapping("/emps")
     @ResponseBody
-    public Msg getEmpsWithJson(@RequestParam(value = "pn",defaultValue = "1")Integer pn, Model model){
+    public Msg getEmpsWithJson(@RequestParam(value = "pn",defaultValue = "1")Integer pn){
         PageHelper.startPage(pn,5);
         List<Employee> emps = employeeServiceImpl.getAll();
         PageInfo page = new PageInfo(emps,5);
+        List list = page.getList();
         return Msg.success().add("pageInfo",page);
     }
 
@@ -84,10 +86,36 @@ public class EmployeeController {
         }
     }
 
-    @RequestMapping(value = "/emp/{id}",method = RequestMethod.POST)
+    @RequestMapping(value = "/emp/{id}",method = RequestMethod.GET)
+    @ResponseBody
     public Msg getEmp(@PathVariable("id") Integer id){
         Employee employee = employeeServiceImpl.getEmp(id);
         return Msg.success().add("emp",employee);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/emp/{empId}",method = RequestMethod.PUT)
+    public Msg saveEmp(Employee employe){
+        employeeServiceImpl.updateEmp(employe);
+        return Msg.success();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/emp/{ids}",method = RequestMethod.DELETE)
+    public Msg deleteEmpById(@PathVariable("ids") String ids){
+        if (ids.contains("-")){
+            List<Integer> del_ids = new ArrayList<>();
+            String[] str_ids = ids.split("-");
+            for (String str_id : str_ids) {
+                del_ids.add(Integer.parseInt(str_id));
+            }
+            employeeServiceImpl.deleteBatch(del_ids);
+        } else {
+            int id = Integer.parseInt(ids);
+            employeeServiceImpl.deleteEmp(id);
+        }
+        return Msg.success();
+    }
+
 
 }

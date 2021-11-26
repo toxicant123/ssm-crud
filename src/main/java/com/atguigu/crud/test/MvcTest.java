@@ -1,6 +1,7 @@
 package com.atguigu.crud.test;
 
 import com.atguigu.crud.bean.Employee;
+import com.atguigu.crud.service.EmployeeService;
 import com.github.pagehelper.PageInfo;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.sql.rowset.RowSetWarning;
 import java.util.List;
 
 /**
@@ -32,6 +34,9 @@ public class MvcTest {
     WebApplicationContext context;
 
     MockMvc mockMvc;
+
+    @Autowired
+    EmployeeService employeeServiceImpl;
 
     @Before
     public void initMockMvc(){
@@ -58,8 +63,20 @@ public class MvcTest {
         for (Employee employee : list) {
             System.out.println("ID："+employee.getEmpId()+"==>Name:"+employee.getEmpName());
         }
+    }
 
+    @Test
+    public void test2(){
+        List<Employee> all = employeeServiceImpl.getAll();
+        for (Employee employee : all) {
+            System.out.println(employee);
 
+        }
+    }
+
+    @Test
+    public void test3(){
+        System.out.println(employeeServiceImpl.getAll());
     }
 
 }
