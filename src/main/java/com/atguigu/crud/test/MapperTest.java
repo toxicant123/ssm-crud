@@ -55,7 +55,7 @@ public class MapperTest {
     }
 
     @Test
-    public void test4(){
+    public void test4() {
         Employee employee = employeeMapper.selectByPrimaryKey(45);
         System.out.println(employee);
     }

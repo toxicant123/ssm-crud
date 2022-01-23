@@ -22,9 +22,9 @@ public class DepartmentController {
 
     @RequestMapping("/depts")
     @ResponseBody
-    public Msg getDepts(){
+    public Msg getDepts() {
         List<Department> list = departmentServiceImpl.getDepts();
-        return Msg.success().add("depts",list);
+        return Msg.success().add("depts", list);
     }
 
 }

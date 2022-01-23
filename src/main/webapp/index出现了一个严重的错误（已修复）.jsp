@@ -97,7 +97,7 @@
         $.each(emps, function (index, item) {
             var empIdTd = $("<td></td>").append(item.empId);
             var empNameTd = $("<td></td>").append(item.empName);
-            var genderTd = $("<td></td>").append(item.gender=='M'?"男":"女");
+            var genderTd = $("<td></td>").append(item.gender == 'M' ? "男" : "女");
             var emailTd = $("<td></td>").append(item.email);
             var deptNameTd = $("<td></td>").append(item.department.deptName);
             var editBtn = $("<button></button>").addClass("btn btn-primary btn-sm").append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
@@ -110,8 +110,7 @@
                 .append(emailTd)
                 .append(emailTd)
                 .append(deptNameTd)
-                .append(btnTd).
-                appendTo("#emps_table");
+                .append(btnTd).appendTo("#emps_table");
         })
     }
 

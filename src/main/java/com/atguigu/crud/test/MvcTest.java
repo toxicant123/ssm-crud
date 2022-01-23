@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.sql.rowset.RowSetWarning;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:applicationContext.xml","file:src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml"})
+@ContextConfiguration(locations = {"classpath:applicationContext.xml", "file:src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml"})
 //@ContextConfiguration(locations = {"classpath:applicationContext.xml","file:src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml"})
 public class MvcTest {
     @Autowired
@@ -39,34 +38,34 @@ public class MvcTest {
     EmployeeService employeeServiceImpl;
 
     @Before
-    public void initMockMvc(){
+    public void initMockMvc() {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
-    
+
     @Test
     public void test1() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/emps").param("pn", "1")).andReturn();
         //请求成功后，请求域中会有pageInfo，我们可以取出pageInfo进行验证
         MockHttpServletRequest request = result.getRequest();
         PageInfo pi = (PageInfo) request.getAttribute("pageInfo");
-        System.out.println("当前页码："+pi.getPageNum());
-        System.out.println("总页码："+pi.getPages());
-        System.out.println("总记录数："+pi.getTotal());
+        System.out.println("当前页码：" + pi.getPageNum());
+        System.out.println("总页码：" + pi.getPages());
+        System.out.println("总记录数：" + pi.getTotal());
         System.out.println("在页面需要连续显示的页码");
         int[] nums = pi.getNavigatepageNums();
         for (int i : nums) {
-            System.out.print(" "+i);
+            System.out.print(" " + i);
         }
 
         //获取员工数据
         List<Employee> list = pi.getList();
         for (Employee employee : list) {
-            System.out.println("ID："+employee.getEmpId()+"==>Name:"+employee.getEmpName());
+            System.out.println("ID：" + employee.getEmpId() + "==>Name:" + employee.getEmpName());
         }
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         List<Employee> all = employeeServiceImpl.getAll();
         for (Employee employee : all) {
             System.out.println(employee);
@@ -75,7 +74,7 @@ public class MvcTest {
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         System.out.println(employeeServiceImpl.getAll());
     }
 
